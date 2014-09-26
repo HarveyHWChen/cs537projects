@@ -1,0 +1,40 @@
+
+**************
+ Score for P3
+**************
+
+
+Test 1: 1 / 1
+Test 2: 1 / 1
+Test 3: 1 / 1
+Test 4: 1 / 1
+Test 5: 1 / 1
+Test 6: 1 / 1
+Test 7: 1 / 1
+Test 8: 1 / 1
+Test 9: 1 / 1
+Test 10: 1 / 1
+Test 11: 1 / 1
+Test 12: 1 / 1
+Test 13: 1 / 1
+Test 14: 1 / 1
+Test 15: 1 / 1
+Test 16: 1 / 1
+Test 17: 1 / 1
+Test 18: 1 / 1
+Test 19: 1 / 1
+Test 20: 1 / 1
+Test 21: 1 / 1
+Test 22: 1 / 1
+Test 23: 1 / 1
+Test 24: 1 / 1
+Test 25: 0 / 1
+Test 26: 1 / 1
+Test 27: 1 / 1
+Test 28: 1 / 1
+Test 29: 1 / 1
+
+
+------------------
+Total  : 28 / 29 
+------------------

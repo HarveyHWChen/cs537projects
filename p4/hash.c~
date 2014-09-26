@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "list.h"
+#include "hash.h"
+#include "spin.h"
+
+
+/**
+ * Initialize hash table
+ * @params hash: the hash table to be initialized
+ * @params buckets: the number of buckets in this hash table
+ */
+void Hash_Init(hash_t* hash, int buckets) {
+  if(hash == NULL) {
+    return;
+  }
+  hash->numBuckets = buckets;
+  hash->buckets = (list_t*) malloc(buckets*sizeof(list_t));
+  //init all the buckets-------------------------Shu
+  int i=0;
+  for(;i<buckets;i++)
+    {
+      List_Init(&hash->buckets[i]);
+    }
+}
+
+/**
+ * Insert an element into hash table
+ * @params hash: the hash table to be inserted in
+ * @params element: the element to be inserted
+ * @params key: the key of element to be inserted
+ */
+void Hash_Insert(hash_t *hash, void *element, unsigned int key) {
+  if(hash == NULL) {
+    return;
+  }
+  // acquire spinlock of this spinlock
+  spinlock_acquire(&hash->mutex);
+  int hashIndex = key % (hash->numBuckets);
+  spinlock_release(&hash->mutex);
+  return  List_Insert(&hash->buckets[hashIndex], element, key);
+  
+
+  /*
+  // find a proper bucket to put this new node
+  int hashIndex = key % (hash->numBuckets);
+  // if corresponding bucket doesn't exist, create one
+  if(hash->buckets[hashIndex] == NULL) {
+    list_t* newList;
+    List_Init(newList);
+    hash->buckets[hashIndex] = newList;
+  }
+  // release the spinlock of this hash table to allow other threads to check hash table.
+  // before that, hold the spinlock of the bucket we need to insert node in to avoid misconduct.
+  spinlock_acquire(&hash->buckets[hashIndex]->mutex);
+  spinlock_release(&hash->mutex);
+  // insert new node into the bucket
+  // because there is already spinlock control inside List_Insert(), we can't use List_Insert() routine here because it also checks the statues of spinlock.
+  node_t* newNode = Node_Const(element, key);
+  newNode->pNext = hash->buckets[hashIndex]->pHeader;
+  hash->buckets[hashIndex]->pHeader = newNode;
+  // finally, release the spinlock of this list(bucket).
+  */
+
+
+
+  //spinlock_release(&hash->buckets[hashIndex]->mutex);
+}
+
+/**
+ * Delete an element with identical key in hash table
+ * @params hash: the hash table to delete elements from
+ * @params key: the key to delete
+ */
+void Hash_Delete(hash_t *hash, unsigned int key) {
+  if(hash == NULL) {
+    return;
+  }  
+  // we don't need to lock hash table in this routine. (do we?)
+  spinlock_acquire(&hash->mutex);
+  int hashIndex = key % hash->numBuckets;
+  List_Delete(&hash->buckets[hashIndex], key);
+  spinlock_release(&hash->mutex);
+}
+
+/**
+ * Look up elements with certain key in hash table
+ * @params hash: the hash table to look up elements in
+ * @params key: the key to look up
+ * @return the pointer points to element with identical key
+ */
+void *Hash_Lookup(hash_t *hash, unsigned int key) {
+  if(hash == NULL) {
+    return NULL;
+  }  
+  // we don't need to lock hash table in this routine. (do we?)
+  spinlock_acquire(&hash->mutex);
+  int hashIndex = key % hash->numBuckets;
+  void* element = List_Lookup(&hash->buckets[hashIndex], key);
+  spinlock_release(&hash->mutex);
+  return element;
+}

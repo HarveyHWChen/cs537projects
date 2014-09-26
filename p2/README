@@ -1,0 +1,11 @@
+CS537 Project2 Readme
+
+Hanwen Chen, 9069978907
+CS username: hanwen
+
+Not working:
+In pipeline mode, pipes were successfully set but sometimes the final output is not present.
+
+Known bug(s):
+When accidently entered a false command(e.g. a typo), then if a quit command is immediately after that typo, shell will not quit at first promt.
+

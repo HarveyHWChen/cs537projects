@@ -1,0 +1,173 @@
+TEST 0: PASSED
+
+TEST 1: PASSED
+
+TEST 2: PASSED
+
+TEST 3: PASSED
+
+TEST 4: PASSED
+
+TEST 5: PASSED
+
+TEST 6: PASSED
+
+TEST 7: PASSED
+
+TEST 8: PASSED
+
+TEST 9: PASSED
+
+TEST 10: PASSED
+
+TEST 11: PASSED
+
+TEST 12: PASSED
+
+TEST 13: PASSED
+
+TEST 14: PASSED
+
+TEST 15: PASSED
+
+TEST 16: PASSED
+
+TEST 17: PASSED
+
+TEST 18: PASSED
+
+TEST 19: PASSED
+
+TEST 20: PASSED
+
+TEST 21: PASSED
+
+TEST 22: bad stdout output
+** Expected:
+cal | uniq
+     March 2014     
+Su Mo Tu We Th Fr Sa
+                   1
+ 2  3  4  5  6  7  8
+ 9 10 11 12 13 14 15
+16 17 18 19 20 21 22
+23 24 25 26 27 28 29
+30 31
+** Got:
+cal | uniq
+Segmentation fault (core dumped)
+** Diff file (which should be empty) instead contains:
+2c2,9
+< Segmentation fault (core dumped)
+---
+>      March 2014     
+> Su Mo Tu We Th Fr Sa
+>                    1
+>  2  3  4  5  6  7  8
+>  9 10 11 12 13 14 15
+> 16 17 18 19 20 21 22
+> 23 24 25 26 27 28 29
+
+TEST 22: bad status
+** Expected return code: 0
+** Got return code     : 139
+TEST 22: FAILED
+
+TEST 23: bad stdout output
+** Expected:
+find /bin -iname ps | wc -l
+1
+** Got:
+find /bin -iname ps | wc -l
+Segmentation fault (core dumped)
+** Diff file (which should be empty) instead contains:
+2c2
+< Segmentation fault (core dumped)
+---
+> 1
+
+TEST 23: bad status
+** Expected return code: 0
+** Got return code     : 139
+TEST 23: FAILED
+
+TEST 24: bad stdout output
+** Expected:
+grep include /u/c/s/cs537-3/test/p2/para.c | head -2
+#include <unistd.h>
+#include <stdlib.h>
+** Got:
+grep include /u/c/s/cs537-3/test/p2/para.c | head -2
+Segmentation fault (core dumped)
+** Diff file (which should be empty) instead contains:
+2c2,3
+< Segmentation fault (core dumped)
+---
+> #include <unistd.h>
+> #include <stdlib.h>
+
+TEST 24: bad status
+** Expected return code: 0
+** Got return code     : 139
+TEST 24: FAILED
+
+TEST 25: bad stdout output
+** Expected:
+ls -lia /bin | grep r;echo hello
+2228225 drwxr-xr-x.  2 root  root     4096 Feb 13 03:44 .
+      2 drwxr-xr-x. 26 root  root     4096 Jan 22 09:24 ..
+2234935 -rwxr-xr-x   1 root  root      123 Sep 12  2012 alsaunmute
+2228289 -rwxr-xr-x   1 root  root    27776 Oct 17 07:57 arch
+2228319 lrwxrwxrwx   1 root  root        4 Mar 28  2013 awk -> gawk
+2228272 -rwxr-xr-x   1 root  root    26264 Oct 17 07:57 basename
+2240575 -rwxr-xr-x   1 root  root   938832 Jul  9  2013 bash
+2228255 -rwxr-xr-x   1 root  root    48568 Oct 17 07:57 cat
+2228293 -rwxr-sr-x   1 root  cgred   16352 Dec  2 10:31 cgclassify
+** Got:
+ls -lia /bin | grep r;echo hello
+Segmentation fault (core dumped)
+** Diff file (which should be empty) instead contains:
+2c2,150
+< Segmentation fault (core dumped)
+---
+> 2228225 drwxr-xr-x.  2 root  root     4096 Feb 13 03:44 .
+>       2 drwxr-xr-x. 26 root  root     4096 Jan 22 09:24 ..
+> 2234935 -rwxr-xr-x   1 root  root      123 Sep 12  2012 alsaunmute
+> 2228289 -rwxr-xr-x   1 root  root    27776 Oct 17 07:57 arch
+> 2228319 lrwxrwxrwx   1 root  root        4 Mar 28  2013 awk -> gawk
+> 2228272 -rwxr-xr-x   1 root  root    26264 Oct 17 07:57 basename
+> 2240575 -rwxr-xr-x   1 root  root   938832 Jul  9  2013 bash
+
+TEST 25: bad status
+** Expected return code: 0
+** Got return code     : 139
+TEST 25: FAILED
+
+TEST 26: bad stdout output
+** Expected:
+find /bin -iname ps > results/fileout;ls -la /bin | wc -l;quit
+149
+** Got:
+find /bin -iname ps > results/fileout;ls -la /bin | wc -l;quit
+** Diff file (which should be empty) instead contains:
+1a2
+> 149
+
+TEST 26: bad stderr output
+** Expected:
+** Got:
+An error has occurred
+** Diff file (which should be empty) instead contains:
+1d0
+< An error has occurred
+
+TEST 26: FAILED
+
+TEST 27: PASSED
+TEST 28: PASSED
+
+TEST 29: PASSED
+
+Summary:
+25 test(s) passed.
+Total: 25 / 30
